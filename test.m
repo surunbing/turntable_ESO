@@ -2,6 +2,7 @@ clc, clear;
 close all
 
 filename = 'Turntable_sweep';
+para_test;
 sweep;
 
 frequence = model.turntable.fre;

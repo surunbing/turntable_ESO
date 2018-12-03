@@ -1,6 +1,6 @@
 % function [model] = sweep(filename, bTf, bFt, bClose)
 fre_start = 1;
-fre_end = 100;
+fre_end = 50;
 
 fre_array = fre_start : 1 : fre_end;
 
