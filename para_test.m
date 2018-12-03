@@ -37,7 +37,7 @@ beta3 = 0.7426 * wq ^ 3 - b2 * beta2 - b1 * beta2 - b1 * b2 * beta1;
 % Q1 = tf(beta4, [1, beta1, beta2, beta3, beta4]);
 % bode(Q1);
 
-gain = 0.1
+gain = K;
 
 %% ¼«µãÅäÖÃ
 % beta4 = wq ^ 4;
