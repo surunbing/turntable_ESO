@@ -1,4 +1,4 @@
-wq = 250 * 2 * pi;
+wq = 200 * 2 * pi;
 
 % Q1 = tf(0.2756 * wq ^ 4, [1, 0.9528 * wq, 1.4539 * wq * wq, 0.7426 * wq ^ 3, 0.2756 * wq ^ 4]);
 % Q2 = tf(wq ^ 4, [1, 4 * wq, 6 * wq * wq, 4 * wq ^ 3, wq ^ 4]);
@@ -31,9 +31,10 @@ beta4 = 0.2756 * wq ^ 4;
 beta1 = 0.9528 * wq - b1 - b2;
 beta2 = 1.4539 * wq * wq - b2 * beta1 - b1 * beta1 - b1 * b2;
 beta3 = 0.7426 * wq ^ 3 - b2 * beta2 - b1 * beta2 - b1 * b2 * beta1;
-% Q1 = tf(beta4, [1, beta1, beta2, beta3, beta4]);
-% bode(Q1);
-
+Q1 = tf(beta4, [1, 0.9528 * wq, 1.4539 * wq^2, 0.7426 * wq^3, 0.2756 * wq^4]);
+bode(Q1);
+grid on
+hold on
 gain = b0;
 
 %% ¼«µãÅäÖÃ
@@ -41,5 +42,7 @@ gain = b0;
 % beta1 = 4 * wq - b1 - b2;
 % beta2 = 6 * wq * wq - b2 * beta1 - b1 * beta1 - b1 * b2;
 % beta3 = 4 * wq ^ 3 - b2 * beta2 - b1 * beta2 - b1 * b2 * beta1;
-
+% Q2 = tf(beta4, [1, 4 * wq, 6 * wq^2, 4 * wq^3, 1 * wq^4]);
+% bode(Q2);
+% grid on
 
