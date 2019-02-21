@@ -35,7 +35,6 @@ for fre = fre_array
     Tsim = t_off;
     %% 'Turntable_close.slx'
     %% 'Turntable_sweep.slx'
-    set_param('Turntable_sweep','AlgebraicLoopSolver','LineSearch');
     sim(filename,Tsim);
 
     turntable_bode.magc(i) = 20 * log10(mag);
