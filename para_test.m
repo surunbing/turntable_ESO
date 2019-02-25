@@ -1,4 +1,4 @@
-wq = 500 * 2 * pi;
+wq = 40 * 2 * pi;
 
 % Q1 = tf(0.2756 * wq ^ 4, [1, 0.9528 * wq, 1.4539 * wq * wq, 0.7426 * wq ^ 3, 0.2756 * wq ^ 4]);
 % Q2 = tf(wq ^ 4, [1, 4 * wq, 6 * wq * wq, 4 * wq ^ 3, wq ^ 4]);
@@ -36,6 +36,7 @@ bode(Q1);
 grid on
 hold on
 gain = b0;
+
 
 %% º´µ„≈‰÷√
 % beta4 = wq ^ 4;
