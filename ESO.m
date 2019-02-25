@@ -49,10 +49,13 @@ sizes.NumSampleTimes = 1;
 sys = simsizes(sizes);  
 % Initialize the discrete states.
 str = [];             % Set str to an empty matrix.
-ts  = [0.0005 0];       % sample time: [period, offset]
+
+t = 0.0005;
+
+ts  = [t 0];       % sample time: [period, offset]
 x0 =[0;0;0;0];
 
-wq = 60 * 2 * pi;
+wq = 80 * 2 * pi;
 K = 1.56 * 180 / pi;
 taue = 0.0039035;
 taum = 0.984871194396488;
@@ -67,7 +70,7 @@ para.beta1 = 0.9528 * wq - b1 - b2;
 para.beta2 = 1.4539 * wq * wq - b2 * para.beta1 - b1 * para.beta1 - b1 * b2;
 para.beta3 = 0.7426 * wq ^ 3 - b2 * para.beta2 - b1 * para.beta2 - b1 * b2 * para.beta1;
 para.gain = b0;
-para.t = 0.0005;
+para.t = t;
 z1 = 0;
 z2 = 0;
 z3 = 0;
