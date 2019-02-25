@@ -50,7 +50,7 @@ sys = simsizes(sizes);
 % Initialize the discrete states.
 str = [];             % Set str to an empty matrix.
 
-t = 0.0005;
+t = 0.00025;
 
 ts  = [t 0];       % sample time: [period, offset]
 x0 =[0;0;0;0];
@@ -106,10 +106,23 @@ dx(2) = z3 - beta1 * e;
 dx(3) = z4 - beta2 * e + b0 * uu - (1.015361202246130 + 2.561803509670808e+02) * z3 - (1.015361202246130 * 2.561803509670808e+02) * z2;
 dx(4) = - beta3 * e;
 
-z1 = z1 + h * dx(1);
-z2 = z2 + h * dx(2);
-z3 = z3 + h * dx(3);
-z4 = z4 + h * dx(4);
+c2 = 2 / 3;
+z11 = z1 + c2 * h * dx(1);
+z22 = z2 + c2 * h * dx(2);
+z33 = z3 + c2 * h * dx(3);
+z44 = z4 + c2 * h * dx(4);
+
+dxy = zeros(4, 1);
+e = z11 - y;
+dxy(1) = z22 - beta0 * e;
+dxy(2) = z33 - beta1 * e;
+dxy(3) = z44 - beta2 * e + b0 * uu - (1.015361202246130 + 2.561803509670808e+02) * z33 - (1.015361202246130 * 2.561803509670808e+02) * z22;
+dxy(4) = - beta3 * e;
+
+z1 = z1 + h / 4 * (dx(1) + 3 * dxy(1));
+z2 = z2 + h / 4 * (dx(2) + 3 * dxy(2));
+z3 = z3 + h / 4 * (dx(3) + 3 * dxy(3));
+z4 = z4 + h / 4 * (dx(4) + 3 * dxy(4));
 
 x(1) = z1;
 x(2) = z2;
