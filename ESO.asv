@@ -41,22 +41,22 @@ function [sys,x0,str,ts] = mdlInitializeSizes
 % to a sizes array.
 
 sizes = simsizes;
-sizes.NumContStates  = 4;
-sizes.NumDiscStates  = 0;
+sizes.NumContStates  = 0;
+sizes.NumDiscStates  = 4;
 sizes.NumOutputs     = 4;
 sizes.NumInputs      = 2;
-sizes.DirFeedthrough = 0; % Matrix D is non-empty.
-sizes.NumSampleTimes = 0;
+sizes.DirFeedthrough = 1; % Matrix D is non-empty.
+sizes.NumSampleTimes = 1;
 sys = simsizes(sizes);  
 % Initialize the discrete states.
 str = [];             % Set str to an empty matrix.
 
 t = 0.0005;
 
-ts  = [];       % sample time: [period, offset]
+ts  = [t 0];       % sample time: [period, offset]
 x0 =[0;0;0;0];
 
-wq = 200 * 2 * pi;
+wq = 80 * 2 * pi;
 K = 1.56 * 180 / pi;
 taue = 0.0039035;
 taum = 0.984871194396488;
@@ -83,8 +83,8 @@ num = 0;
 
 %End of mdlInitializeSizes
 
-function sys = mdlDerivatives(t,x,u)
-global para z1 z2 z3 z4;
+function sys = mdlUpdates(t,x,u)
+global para z1 z2 z3 z4 num;
 beta0 = para.beta1;
 beta1 = para.beta2;
 beta2 = para.beta3;
@@ -95,11 +95,6 @@ h = para.t;
 uu = u(1);
 y = u(2);
 
-z1 = x(1);
-z2 = x(2);
-z3 = x(3);
-z4 = x(4);
-
 dx = zeros(4, 1);
 e = z1 - y;
 dx(1) = z2 - beta0 * e;
@@ -107,10 +102,16 @@ dx(2) = z3 - beta1 * e;
 dx(3) = z4 - beta2 * e + b0 * uu - (1.015361202246130 + 2.561803509670808e+02) * z3 - (1.015361202246130 * 2.561803509670808e+02) * z2;
 dx(4) = - beta3 * e;
 
-sys(1) = dx(1);
-sys(2) = dx(2);
-sys(3) = dx(3);
-sys(4) = dx(4);
+z1 = z1 + h * dx(1);
+z2 = z2 + h * dx(2);
+z3 = z3 + h * dx(3);
+z4 = z4 + h * dx(4);
+
+x(1) = z1;
+x(2) = z2;
+x(3) = z3;
+x(4) = z4;
+    sys(1) = 
 		      
 %==============================================================
 % Update the discrete states
