@@ -2,7 +2,7 @@
 fre_start = 1;
 fre_end = 50;
 
-fre_array = fre_start : 4 : fre_end;
+fre_array = fre_start : 1 : fre_end;
 
 turntable_bode.fre = fre_array * 2 * pi;
 turntable_bode.mag = zeros(length(fre_array), 1);
